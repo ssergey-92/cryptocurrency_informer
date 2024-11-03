@@ -3,7 +3,7 @@
 from decimal import Decimal
 
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import DECIMAL, insert, BigInteger
+from sqlalchemy import DECIMAL, insert, BigInteger, select, Sequence
 
 from .connection import Base, async_session
 from cryptocurrency_app.app_logger import app_logger
@@ -30,3 +30,19 @@ class Cryptocurrency(Base):
                 )
                 entry_id = query.scalar_one_or_none()
                 app_logger.debug(f"Saved {ticker} under id: {entry_id}")
+
+    @classmethod
+    async def get_ticker_data(cls, ticker: str) -> Sequence["Cryptocurrency"]:
+        """Get al ticker entries sorted by time DESC."""
+
+        async with async_session() as session:
+            query = await session.execute(
+                select(cls).
+                where(cls.ticker == ticker).
+                order_by(cls.time.desc())
+            )
+            result = query.scalars().all()
+
+        return result
+
+

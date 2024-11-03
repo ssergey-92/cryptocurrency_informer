@@ -9,9 +9,7 @@ from pydantic import ValidationError
 
 from cryptocurrency_app.app_logger import app_logger
 from cryptocurrency_app.models.cryptocurrency import Cryptocurrency
-from cryptocurrency_app.schemas.external.deribit_current_price import (
-    DeribitCurrentPrice,
-)
+from cryptocurrency_app.schemas.external import DeribitCurrentPrice
 
 
 class CryptocurrencyPrice:

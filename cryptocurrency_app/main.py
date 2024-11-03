@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from app_logger import app_logger
 from database import Database
 from schedular import CustomScheduler
-
+from routes.cryptocurrency import router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> None:
@@ -26,3 +26,4 @@ app = FastAPI(
     title=getenv("APP_TITLE"),
     lifespan=lifespan,
 )
+app.include_router(router)
