@@ -12,5 +12,5 @@ COPY . .
 
 RUN poetry config virtualenvs.create false --local && poetry install
 
-CMD ["/usr/local/bin/gunicorn", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "127.0.0.1:80", "main:app"]
+CMD ["/usr/local/bin/gunicorn", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:80", "main:app"]
 
