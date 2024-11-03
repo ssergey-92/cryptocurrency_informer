@@ -1,0 +1,202 @@
+openapi: 3.1.0
+info:
+  title: Cruptocurency App Informer
+  version: 0.1.0
+paths:
+  /cryptocurrency/records:
+    get:
+      summary: Get All Cryptocurrency Details
+      description: Get all available records for cryptocurrency ticker.
+      operationId: get_all_cryptocurrency_details_cryptocurrency_records_get
+      parameters:
+        - name: ticker
+          in: query
+          required: true
+          schema:
+            type: string
+            title: Ticker
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - $ref: '#/components/schemas/ErrorResponse'
+                title: >-
+                  Response Get All Cryptocurrency Details Cryptocurrency Records
+                  Get
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /cryptocurrency/price/current:
+    get:
+      summary: Get Current Ticker Price
+      description: Get current cryptocurrency ticker price.
+      operationId: get_current_ticker_price_cryptocurrency_price_current_get
+      parameters:
+        - name: ticker
+          in: query
+          required: true
+          schema:
+            type: string
+            title: Ticker
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - $ref: '#/components/schemas/ErrorResponse'
+                title: >-
+                  Response Get Current Ticker Price Cryptocurrency Price Current
+                  Get
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /cryptocurrency/price/period:
+    get:
+      summary: Get Ticker Price For Period
+      description: Get cryptocurrency ticker price for period.
+      operationId: get_ticker_price_for_period_cryptocurrency_price_period_get
+      parameters:
+        - name: ticker
+          in: query
+          required: true
+          schema:
+            type: string
+            title: Ticker
+        - name: start_date
+          in: query
+          required: true
+          schema:
+            type: string
+            title: Start Date
+        - name: end_date
+          in: query
+          required: true
+          schema:
+            type: string
+            title: End Date
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - $ref: '#/components/schemas/ErrorResponse'
+                title: >-
+                  Response Get Ticker Price For Period Cryptocurrency Price
+                  Period Get
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      properties:
+        error:
+          type: string
+          title: Error
+      type: object
+      required:
+        - error
+      title: ErrorResponse
+      description: Class to validate response body with error message.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SuccessResponse:
+      properties:
+        result:
+          items:
+            anyOf:
+              - type: object
+              - type: 'null'
+          type: array
+          title: Result
+      type: object
+      required:
+        - result
+      title: SuccessResponse
+      description: Class for success response msg.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
