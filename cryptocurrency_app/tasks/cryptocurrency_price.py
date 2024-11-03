@@ -61,7 +61,6 @@ class CryptocurrencyPrice:
             "params": {"index_name": currency}
         }
 
-    # TODO add return type
     @classmethod
     async def _get_current_price(
         cls, method: str, currency: str,

@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 class CurrentPriceResult(BaseModel):
     """Deribit success result for cryptocurrency current price."""
-    
+
     estimated_delivery_price: Decimal
     index_price: Decimal
 
