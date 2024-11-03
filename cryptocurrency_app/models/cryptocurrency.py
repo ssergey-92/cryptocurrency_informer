@@ -33,7 +33,7 @@ class Cryptocurrency(Base):
 
     @classmethod
     async def get_ticker_data(cls, ticker: str) -> Sequence["Cryptocurrency"]:
-        """Get al ticker entries sorted by time DESC."""
+        """Get all ticker entries sorted by time DESC."""
 
         async with async_session() as session:
             query = await session.execute(
@@ -57,5 +57,24 @@ class Cryptocurrency(Base):
                 limit(1)
             )
             result = query.scalar_one_or_none()
+
+        return result
+
+    @classmethod
+    async def get_data_by_period(
+        cls, ticker: str, start_time: int, end_time: int,
+    ) -> Sequence["Cryptocurrency"]:
+        """Get ticker entries for period sorted by time DESC."""
+
+        async with async_session() as session:
+            query = await session.execute(
+                select(cls).
+                where(
+                    cls.ticker == ticker,
+                    cls.time.between(start_time, end_time)
+                ).
+                order_by(cls.time.desc())
+            )
+            result = query.scalars().all()
 
         return result
