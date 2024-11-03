@@ -28,5 +28,5 @@ class Cryptocurrency(Base):
                     values(ticker=ticker, index_price=index_price, time=time).
                     returning(cls.id)
                 )
-                entry_id = query.one_or_none()
-                app_logger.debug(f"Saved {ticker} under {entry_id}")
+                entry_id = query.scalar_one_or_none()
+                app_logger.debug(f"Saved {ticker} under id: {entry_id}")
