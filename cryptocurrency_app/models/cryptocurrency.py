@@ -3,7 +3,7 @@
 from decimal import Decimal
 
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import DECIMAL, insert, BigInteger, select, Sequence
+from sqlalchemy import DECIMAL, insert, BigInteger, select, Sequence, func
 
 from .connection import Base, async_session
 from cryptocurrency_app.app_logger import app_logger
@@ -45,4 +45,17 @@ class Cryptocurrency(Base):
 
         return result
 
+    @classmethod
+    async def get_last_ticker_entry(cls, ticker: str) -> "Cryptocurrency":
+        """Get last ticker entry instance."""
 
+        async with async_session() as session:
+            query = await session.execute(
+                select(cls).
+                where(cls.ticker == ticker).
+                order_by(cls.time.desc()).
+                limit(1)
+            )
+            result = query.scalar_one_or_none()
+
+        return result
