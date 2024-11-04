@@ -1,3 +1,5 @@
+"""Module with FastAPI app."""
+
 from contextlib import asynccontextmanager
 from os import getenv
 
