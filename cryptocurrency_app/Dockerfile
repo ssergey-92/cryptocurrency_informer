@@ -10,7 +10,7 @@ ENV PYTHONPATH="/cryptocurrency_informer:${PYTHONPATH}"
 
 COPY . .
 
-RUN poetry config virtualenvs.create false --local && poetry install
+RUN poetry config virtualenvs.create false --local && poetry install --without test
 
 CMD ["/usr/local/bin/gunicorn", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:80", "main:app"]
 
