@@ -39,7 +39,7 @@ git clone https://github.com/ssergey-92/cryptocurrency_informer
 - From the command line: 
 ```
 cd 'your path to project root directory'
-docker compose up --build
+docker compose up --build cryptocurrency_app db
 ```
 
 ### Developers ###
