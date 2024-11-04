@@ -9,7 +9,6 @@ on:
     branches:
       - master
 
-
 jobs:
   build:
 
@@ -34,10 +33,10 @@ jobs:
       - name: Install app dependencies
         run: poetry config virtualenvs.create false --local && poetry install -C ./cryptocurrency_app
 
-      - name: Starting test db container 'Postgresql'
+      - name: Starting test db container 'PostgreSQL'
         run: docker compose up --build test_db
 
-      - name: Waiting Postgresql initialization
+      - name: Waiting 'PostgreSQL' initialization
         run: timeout 15s docker exec test_db sh -c 'pg_isready'
 
       - name: Starting tests
