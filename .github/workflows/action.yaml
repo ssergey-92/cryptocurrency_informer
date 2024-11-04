@@ -12,7 +12,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: cryptocurrency_informer
     env:
+      GITHUB_ACTIONS: True
       APP_DEBUG: ${{ vars.APP_DEBUG }}
       APP_TITLE: ${{ vars.APP_TITLE }}
       APP_PORT: ${{ vars.APP_PORT }}
@@ -45,7 +47,6 @@ jobs:
       LOGGER_FILE_HANDLER_LEVEL: ${{ vars.LOGGER_FILE_HANDLER_LEVEL }}
       LOGGER_FILE_SIZE: ${{ vars.LOGGER_FILE_SIZE }}
       LOGGER_BACKUP_COUNT: ${{ vars.LOGGER_BACKUP_COUNT }}
-
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
