@@ -14,12 +14,24 @@ from sqlalchemy.pool import NullPool
 def get_db_url() -> str:
     """Get url for connection to app db."""
 
-    return "postgresql+asyncpg://{username}:{password}@{host}:{port}/{db_name}".format(
-        username=getenv("DB_USERNAME"),
-        password=getenv("DB_PASSWORD"),
-        host=getenv("DC_DB_NAME"),
-        port=getenv("DB_PORT"),
-        db_name=getenv("DB_NAME"),
+    if getenv("APP_TESTING") == "True":
+        db_name = getenv("TEST_DB_NAME")
+        host = getenv("TEST_DB_HOST")
+        port = getenv("TEST_DB_PORT")
+    else:
+        db_name = getenv("DB_NAME")
+        host = getenv("DC_DB_NAME")
+        port = getenv("DB_PORT")
+
+    return (
+        "postgresql+asyncpg://{username}:{password}@{host}:{port}/{db_name}".
+        format(
+            username=getenv("DB_USERNAME"),
+            password=getenv("DB_PASSWORD"),
+            host=host,
+            port=port,
+            db_name=db_name,
+        )
     )
 
 
