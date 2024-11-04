@@ -4,8 +4,9 @@ from os import getenv
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from tasks.cryptocurrency_price import CryptocurrencyPrice
 from app_logger import app_logger
+from tasks.cryptocurrency_price import CryptocurrencyPrice
+
 
 class CustomScheduler:
     scheduler = AsyncIOScheduler()

@@ -15,7 +15,7 @@ from cryptocurrency_app.schemas.external import DeribitCurrentPrice
 class CryptocurrencyPrice:
     """Base Class CryptocurrencyPrice.
 
-     Class is used to get and save data from Deribit website."""
+    Class is used to get and save data from Deribit website."""
 
     _url = getenv("DERIBIT_API_URL")
     _current_price_method = "public/get_index_price"
@@ -47,7 +47,6 @@ class CryptocurrencyPrice:
         except Exception:
             app_logger.error(f"Caught exception: {format_exc()=}")
 
-
     @classmethod
     def _get_json_rpc(cls, method: str, currency: str) -> dict:
         """Create json RPC for deribit get index price endpoint."""
@@ -56,7 +55,7 @@ class CryptocurrencyPrice:
             "jsonrpc": "2.0",
             "method": method,
             "id": 1,
-            "params": {"index_name": currency}
+            "params": {"index_name": currency},
         }
 
     @classmethod

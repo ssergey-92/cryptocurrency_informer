@@ -5,6 +5,7 @@ from pathlib import Path
 from logging import Formatter, Logger, StreamHandler, getLogger
 from logging.handlers import RotatingFileHandler
 
+
 class CustomLogger:
     """Base class CustomLogger. Class create logger for app."""
 

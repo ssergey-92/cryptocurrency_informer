@@ -10,7 +10,7 @@ from cryptocurrency_app.app_logger import app_logger
 
 
 class Cryptocurrency(Base):
-    __tablename__ = 'cryptocurrencies'
+    __tablename__ = "cryptocurrencies"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     ticker: Mapped[str] = mapped_column(index=True, nullable=False)

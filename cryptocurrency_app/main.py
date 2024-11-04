@@ -10,6 +10,7 @@ from database import Database
 from schedular import CustomScheduler
 from routes.cryptocurrency import router
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> None:
     """Implement logic before starting and stopping FastAPI app."""

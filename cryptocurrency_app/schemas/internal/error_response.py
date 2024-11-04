@@ -2,6 +2,7 @@
 
 from pydantic import BaseModel
 
+
 class ErrorResponse(BaseModel):
     """Class to validate response body with error message."""
 

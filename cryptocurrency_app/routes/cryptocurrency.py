@@ -23,12 +23,11 @@ router = APIRouter()
     path="/cryptocurrency/records",
     description="Get all available records for cryptocurrency ticker.",
     responses={
-    200: {"description": "Success", "model": SuccessResponse},
-    400: {"description": "Bad Request", "model": ErrorResponse},
-    500: {"description": "Internal Server Error", "model": ErrorResponse},
+        200: {"description": "Success", "model": SuccessResponse},
+        400: {"description": "Bad Request", "model": ErrorResponse},
+        500: {"description": "Internal Server Error", "model": ErrorResponse},
     },
 )
-
 async def get_all_cryptocurrency_details(
     ticker: str, response: Response,
 ) -> Union[SuccessResponse, ErrorResponse]:
@@ -50,12 +49,11 @@ async def get_all_cryptocurrency_details(
     path="/cryptocurrency/price/current",
     description="Get current cryptocurrency ticker price.",
     responses={
-    200: {"description": "Success", "model": SuccessResponse},
-    400: {"description": "Bad Request", "model": ErrorResponse},
-    500: {"description": "Internal Server Error", "model": ErrorResponse},
+        200: {"description": "Success", "model": SuccessResponse},
+        400: {"description": "Bad Request", "model": ErrorResponse},
+        500: {"description": "Internal Server Error", "model": ErrorResponse},
     },
 )
-
 async def get_current_ticker_price(
     ticker: str, response: Response,
 ) -> Union[SuccessResponse, ErrorResponse]:
@@ -77,12 +75,11 @@ async def get_current_ticker_price(
     path="/cryptocurrency/price/period",
     description="Get cryptocurrency ticker price for period.",
     responses={
-    200: {"description": "Success", "model": SuccessResponse},
-    400: {"description": "Bad Request", "model": ErrorResponse},
-    500: {"description": "Internal Server Error", "model": ErrorResponse},
+        200: {"description": "Success", "model": SuccessResponse},
+        400: {"description": "Bad Request", "model": ErrorResponse},
+        500: {"description": "Internal Server Error", "model": ErrorResponse},
     },
 )
-
 async def get_ticker_price_for_period(
     ticker: str, start_date: str, end_date: str, response: Response,
 ) -> Union[SuccessResponse, ErrorResponse]:
@@ -90,7 +87,8 @@ async def get_ticker_price_for_period(
         ticker = CryptoCurrencyTicker(ticker=ticker).ticker
         price_period = DatesPeriod(start_date=start_date, end_date=end_date)
         ticker_data = await HandleCryptocurrency.get_period_price(
-            ticker, price_period.start_date, price_period.end_date)
+            ticker, price_period.start_date, price_period.end_date,
+        )
         response.status_code = 200
         return SuccessResponse(result=ticker_data)
     except ValidationError as exc:

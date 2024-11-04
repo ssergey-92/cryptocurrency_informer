@@ -13,7 +13,6 @@ class DatesPeriod(BaseModel):
     start_date: str
     end_date: str
 
-
     @field_validator("start_date")
     @classmethod
     def validate_start_date(cls, start_date: str) -> str:
@@ -36,9 +35,7 @@ class DatesPeriod(BaseModel):
         """Check that end date has supported format and valid."""
 
         if not cls._is_supported_date_format(end_date):
-            raise ValueError(
-                f"Use end date format as following: 31-12-2023!"
-            )
+            raise ValueError(f"Use end date format as following: 31-12-2023!")
         elif not cls._is_valid_date(end_date):
             raise ValueError(
                 f"End date must be valid and less or equal to current date!"
@@ -62,7 +59,7 @@ class DatesPeriod(BaseModel):
     def _is_supported_date_format(cls, date: str) -> bool:
         """Check that date has supported format."""
 
-        date_pattern = r'{}'.format(getenv("DATE_FORMAT_PATTERN"))
+        date_pattern = r"{}".format(getenv("DATE_FORMAT_PATTERN"))
         if match(date_pattern, date):
             return True
 
@@ -78,5 +75,5 @@ class DatesPeriod(BaseModel):
                 return True
 
             return False
-        except ValueError as exc:
+        except ValueError:
             return False

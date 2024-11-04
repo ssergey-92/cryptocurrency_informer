@@ -14,7 +14,7 @@ class HandleCryptocurrency:
         return [
             {
                 "id": i_ticker.id,
-                "ticker":i_ticker.ticker,
+                "ticker": i_ticker.ticker,
                 "index_price": i_ticker.index_price,
                 "time": i_ticker.time,
             }
