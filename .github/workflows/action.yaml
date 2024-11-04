@@ -60,20 +60,17 @@ jobs:
       - name: Print Environment Variables
         run: env
 
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
-
-      - name: Install and upgrade pip and poetry
-        run: sudo apt-get update && pip install --upgrade pip && pip install poetry==1.8.4
-
-      - name: Install app dependencies
-        run: poetry config virtualenvs.create false --local && poetry install -C ./cryptocurrency_app
-
       - name: Starting test db container 'PostgreSQL'
         run: touch .env && docker compose up -d --build test_db
 
       - name: Waiting 'PostgreSQL' initialization
         run: timeout 20s bash -c "until docker exec test_db pg_isready; do sleep 1; done"
+
+      - name: Install and upgrade pip and poetry
+        run: sudo apt-get update && pip install --upgrade pip && pip install poetry==1.8.4
+
+      - name: Install test dependencies
+        run: poetry config virtualenvs.create false && cd ./cryptocurrency_app && poetry install --no-root
 
       - name: Starting tests
         run: pytest ./tests
