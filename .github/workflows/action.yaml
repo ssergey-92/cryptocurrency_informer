@@ -70,7 +70,7 @@ jobs:
         run: poetry config virtualenvs.create false --local && poetry install -C ./cryptocurrency_app
 
       - name: Starting test db container 'PostgreSQL'
-        run: docker compose up --build test_db
+        run: touch .env && docker compose up -d --build test_db
 
       - name: Waiting 'PostgreSQL' initialization
         run: timeout 15s docker exec test_db sh -c 'pg_isready'

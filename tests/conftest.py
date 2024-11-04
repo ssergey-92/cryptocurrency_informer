@@ -1,6 +1,6 @@
 """Configuration file for pytest."""
 
-from os import environ, path
+from os import environ, getenv, path
 from pathlib import Path
 
 from aioresponses import aioresponses
@@ -14,7 +14,8 @@ from sqlalchemy import text
 def pytest_configure():
     """Load env file and set APP_TESTING=True fortest."""
 
-    load_dotenv(path.join(Path(__file__).parent.parent / ".env"))
+    if not getenv("GITHUB_ACTIONS"):
+        load_dotenv(path.join(Path(__file__).parent.parent / ".env"))
     environ["APP_TESTING"] = "True"
 
 
