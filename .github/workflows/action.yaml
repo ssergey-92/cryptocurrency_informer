@@ -73,7 +73,7 @@ jobs:
         run: touch .env && docker compose up -d --build test_db
 
       - name: Waiting 'PostgreSQL' initialization
-        run: timeout 15s docker exec test_db sh -c 'pg_isready'
+        run: timeout 20s bash -c "until docker exec test_db pg_isready; do sleep 1; done"
 
       - name: Starting tests
         run: pytest ./tests
