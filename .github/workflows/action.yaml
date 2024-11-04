@@ -12,6 +12,39 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      APP_DEBUG: ${{ vars.APP_DEBUG }}
+      APP_TITLE: ${{ vars.APP_TITLE }}
+      APP_PORT: ${{ vars.APP_PORT }}
+      APP_CRYPTOCURRENCIES: ${{ vars.APP_CRYPTOCURRENCIES }}
+      APP_CRYPTOCURRENCIES_UPDATE_INTERVAL: ${{ vars.APP_CRYPTOCURRENCIES_UPDATE_INTERVAL }}
+      APP_ERROR_MSG: ${{ vars.APP_ERROR_MSG }}
+      DB_NAME: ${{ vars.DB_NAME }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ vars.DB_HOST }}
+      DB_PORT: ${{ vars.DB_PORT }}
+      DC_APP_NAME: ${{ vars.DC_APP_NAME }}
+      DC_DB_NAME: ${{ vars.DC_DB_NAME }}
+      DC_TEST_DB_NAME: ${{ vars.DC_TEST_DB_NAME }}
+      APP_TESTING: ${{ vars.APP_TESTING }}
+      TEST_DB_HOST: ${{ vars.TEST_DB_HOST }}
+      TEST_DB_PORT: ${{ vars.TEST_DB_PORT }}
+      TEST_DB_NAME: ${{ vars.TEST_DB_NAME }}
+      DC_LOGGER_FILES: ${{ vars.DC_LOGGER_FILES }}
+      DC_LOGGER_FILE_SIZE: ${{ vars.DC_LOGGER_FILE_SIZE }}
+      DERIBIT_API_URL: ${{ vars.DERIBIT_API_URL }}
+      ENCODING: ${{ vars.ENCODING }}
+      DATE_FORMAT_PATTERN: ${{ vars.DATE_FORMAT_PATTERN }}
+      DATE_FORMAT: ${{ vars.DATE_FORMAT }}
+      LOGGER_NAME: ${{ vars.LOGGER_NAME }}
+      LOGGER_LEVEL: ${{ vars.LOGGER_LEVEL }}
+      LOGGER_FILES_DIR_NAME: ${{ vars.LOGGER_FILES_DIR_NAME }}
+      LOGGER_FILES_NAME: ${{ vars.LOGGER_FILES_NAME }}
+      LOGGER_STREAM_HANDLER_LEVEL: ${{ vars.LOGGER_STREAM_HANDLER_LEVEL }}
+      LOGGER_FILE_HANDLER_LEVEL: ${{ vars.LOGGER_FILE_HANDLER_LEVEL }}
+      LOGGER_FILE_SIZE: ${{ vars.LOGGER_FILE_SIZE }}
+      LOGGER_BACKUP_COUNT: ${{ vars.LOGGER_BACKUP_COUNT }}
 
     steps:
       - name: Check out the code
@@ -22,6 +55,9 @@ jobs:
         with:
           python-version: '3.12'
           architecture: 'x64'
+
+      - name: Print Environment Variables
+        run: env
 
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
