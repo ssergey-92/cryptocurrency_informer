@@ -1,5 +1,4 @@
 name: 'Cryptocurrency Informer Action'
-description: 'GitHub Actions is used to test code which is pushed or merged to master.'
 
 on:
   push:
