@@ -1,0 +1,44 @@
+name: 'Cryptocurrency Informer Action'
+description: 'GitHub Actions is used to test code which is pushed or merged to master.'
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: 'x64'
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Install and upgrade pip and poetry
+        run: sudo apt-get update && pip install --upgrade pip && pip install poetry==1.8.4
+
+      - name: Install app dependencies
+        run: poetry config virtualenvs.create false --local && poetry install -C ./cryptocurrency_app
+
+      - name: Starting test db container 'Postgresql'
+        run: docker compose up --build test_db
+
+      - name: Waiting Postgresql initialization
+        run: timeout 15s docker exec test_db sh -c 'pg_isready'
+
+      - name: Starting tests
+        run: pytest ./tests
