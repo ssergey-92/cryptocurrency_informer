@@ -30,7 +30,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DB_PORT}:5432
     volumes:
       - ./db_data/:/var/lib/postgresql/data
     command: postgres -c listen_addresses='*'
@@ -52,7 +52,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${TEST_DB_NAME}
     ports:
-      - ${TEST_DB_PORT}:${TEST_DB_PORT}
+      - ${TEST_DB_PORT}:5432
     volumes:
       - ./test_db_data/:/var/lib/postgresql/data
     command: postgres -c listen_addresses='*'
