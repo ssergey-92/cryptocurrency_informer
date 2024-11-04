@@ -1,6 +1,6 @@
 """Module for working with database."""
 
-from .app_logger import app_logger
+from app_logger import app_logger
 from models.cryptocurrency import Cryptocurrency
 from models.connection import Base, async_engine
 
