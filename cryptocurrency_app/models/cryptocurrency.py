@@ -78,3 +78,15 @@ class Cryptocurrency(Base):
             result = query.scalars().all()
 
         return result
+
+    @classmethod
+    async def get_total_ticker_entries(cls, ticker: str) -> int:
+        """Get total number of ticker entries."""
+
+        async with async_session() as session:
+            query = await session.execute(
+                select(func.count(cls.id)).
+                where(cls.ticker == ticker)
+            )
+            result = query.scalar_one_or_none()
+        return result if result else 0
