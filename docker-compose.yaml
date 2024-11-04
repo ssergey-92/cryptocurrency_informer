@@ -44,6 +44,28 @@ services:
         max-file: ${DC_LOGGER_FILES}
         max-size: ${DC_LOGGER_FILE_SIZE}
 
+  test_db:
+    image: postgres:16
+    container_name: ${DC_TEST_DB_NAME}
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${TEST_DB_NAME}
+    ports:
+      - ${TEST_DB_PORT}:${TEST_DB_PORT}
+    volumes:
+      - ./test_db_data/:/var/lib/postgresql/data
+    command: postgres -c listen_addresses='*'
+    restart: always
+    stop_signal: SIGKILL
+    networks:
+      - project
+    logging:
+      driver: json-file
+      options:
+        max-file: ${DC_LOGGER_FILES}
+        max-size: ${DC_LOGGER_FILE_SIZE}
+
 networks:
   project:
     driver: bridge
